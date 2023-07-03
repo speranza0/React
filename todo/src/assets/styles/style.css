@@ -7,7 +7,7 @@ ul {
   list-style-type: none;
 }
 
-.header-wrap {
+.div-wrap .header-wrap {
   height: 100px;
   margin: 20px auto;
   display: flex;
@@ -16,6 +16,12 @@ ul {
 
 .header-in {
   margin: auto;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 #input {
@@ -29,7 +35,7 @@ ul {
   width: 100px;
 }
 
-.content-wrap{
+.div-wrap .content-wrap{
   width: 50%;
   margin: auto;
 }
