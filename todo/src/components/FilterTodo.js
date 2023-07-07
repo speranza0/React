@@ -2,17 +2,22 @@ import { useEffect } from "react";
 import { useInput, useSelect } from "../hooks/control";
 import { Controller, useForm } from "react-hook-form";
 
-function FilterTodo({ filterTodo, resetSearch }) {
+import * as todoService from "../service/todo";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+
+function FilterTodo({ searchItem, setSearchItem, filterTodo, resetSearch }) {
   // const [query, onChangeQuery] = useInput("");
   // const [condi, onChangeCondi] = useSelect("all");
 
-  const { control, handleSubmit } = useForm();
+  const { control, handleSubmit, reset } = useForm();
 
-  const onSubmit = (data) => {
+  const queryClient = useQueryClient();
+
+  const onSubmit = async (data) => {
     if (!data.query) {
       data.query = "";
     }
-    filterTodo(data);
+    setSearchItem(data);
   };
 
   const onError = (error) => {
@@ -22,6 +27,10 @@ function FilterTodo({ filterTodo, resetSearch }) {
       break;
     }
   };
+
+  useEffect(() => {
+    reset(searchItem);
+  }, [searchItem]);
 
   useEffect(() => {
     return () => {

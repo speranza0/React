@@ -4,10 +4,10 @@ function ListTodoItem({ todoItem, onCheck, onRemove }) {
       <input
         type="checkbox"
         checked={todoItem.success}
-        onChange={() => onCheck(todoItem.index)}
+        onChange={() => onCheck(todoItem.id)}
       />
       {todoItem.content}
-      <button onClick={() => onRemove(todoItem.index)}>삭제</button>
+      <button onClick={() => onRemove(todoItem.id)}>삭제</button>
     </li>
   );
 }

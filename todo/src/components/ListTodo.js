@@ -7,7 +7,7 @@ function ListTodo({ todoList, onCheck, onRemove }) {
       <ul id="todoList">
         {todoList.map((todoItem) => (
           <ListTodoItem
-            key={todoItem.index}
+            key={todoItem.id}
             todoItem={todoItem}
             onCheck={onCheck}
             onRemove={onRemove}

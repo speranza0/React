@@ -7,6 +7,9 @@ import * as yup from "yup";
 
 import { Controller, useForm } from "react-hook-form";
 
+import * as todoService from "../service/todo";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+
 const schema = yup.object({
   content: yup.string().required("할일을 입력해주세요."),
 });
@@ -20,12 +23,24 @@ function CreateTodo() {
     resolver: yupResolver(schema),
   });
 
+  const queryClient = useQueryClient();
+
   // const [content, onChangeContent, resetContent] = useInput("");
 
-  const onSubmit = (data) => {
-    createTodo(data);
+  const onSubmit = async (data) => {
+    let idx = 0;
+    const result = await todoService.create(data);
+    idx = result.id;
+
+    await queryClient.invalidateQueries(todoService.findOneQueryKey(idx));
+    await queryClient.invalidateQueries(todoService.findAllQueryKey);
     navigate("/");
   };
+
+  // const onSubmit = (data) => {
+  //   createTodo(data);
+  //   navigate("/");
+  // };
 
   const onError = (error) => {
     const errorKey = Object.keys(error);
